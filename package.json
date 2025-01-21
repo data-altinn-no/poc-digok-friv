@@ -3,16 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-scripts": "^5.0.1"
+    "@digdir/designsystemet": "^1.0.0-next.43",
+    "@digdir/designsystemet-css": "^0.10.0",
+    "@digdir/designsystemet-react": "^0.63.1",
+    "@digdir/designsystemet-theme": "^0.15.3",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/express": "^5.0.0",
+    "axios": "^1.7.9",
+    "dotenv-webpack": "^8.1.0",
+    "html-webpack-plugin": "^5.6.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-scripts": "^5.0.1",
+    "ts-loader": "^9.5.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack serve --config webpack.config.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -26,9 +35,16 @@
       "not op_mini all"
     ],
     "development": [
-      "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.6",
+    "@types/react-dom": "^19.0.3",
+    "typescript": "^5.7.3",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0"
   }
 }
