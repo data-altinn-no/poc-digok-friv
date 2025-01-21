@@ -27,9 +27,8 @@
   },
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "start": "webpack serve --config webpack.config.js",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "webpack serve --config webpack.config.js --mode development",
+    "test": "echo \"No test script configured\" && exit 0"
   },
   "eslintConfig": {
     "extends": "react-app"

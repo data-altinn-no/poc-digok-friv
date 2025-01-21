@@ -40,7 +40,7 @@ module.exports = (env, argv) => {
         plugins: [
             ...(isDevelopment ? [new Dotenv()] : []),
             new HtmlWebpackPlugin({
-                template: './build/index.html',
+                template: './public/index.html',
             }),
         ],
     };
