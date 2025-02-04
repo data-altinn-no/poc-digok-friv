@@ -55,6 +55,10 @@ module.exports = (env, argv) => {
                         },
                     },
                 ],
+            }),
+            new webpack.DefinePlugin({
+                'process.env.API_URL': JSON.stringify(process.env.REACT_APP_API_URL || ''),
+                'process.env.SUBSCRIPTION_KEY': JSON.stringify(process.env.REACT_APP_SUBSCRIPTION_KEY || '')
             })
         ],
     };
