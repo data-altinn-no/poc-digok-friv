@@ -55,11 +55,7 @@ module.exports = (env, argv) => {
                         },
                     },
                 ],
-            }),
-            new webpack.DefinePlugin({
-                'process.env.API_URL': JSON.stringify(process.env.API_URL || ''),
-                'process.env.SUBSCRIPTION_KEY': JSON.stringify(process.env.SUBSCRIPTION_KEY || ''),
-            }),
+            })
         ],
     };
 };

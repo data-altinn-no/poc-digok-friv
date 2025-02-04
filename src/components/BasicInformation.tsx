@@ -59,12 +59,16 @@ export const BasicInformation: React.FC<Props> = ({ data }) => {
           </Table.Cell>
         </Table.Row>
         <Table.Row>
+          <Table.Cell>Har ansatte</Table.Cell>
+          <Table.Cell>{data.NumberOfEmployees == undefined ? "Ikke oppgitt" : data.NumberOfEmployees > 0 ? "Ja" : "Nei" }</Table.Cell>
+        </Table.Row>
+        <Table.Row>
           <Table.Cell>Antall ansatte</Table.Cell>
           <Table.Cell>{data.NumberOfEmployees}</Table.Cell>
         </Table.Row>
         <Table.Row>
           <Table.Cell>Stiftelsesdato</Table.Cell>
-          <Table.Cell>{new Date(data.Established).toLocaleDateString('nb-NO')}</Table.Cell>
+          <Table.Cell>{ data.Established == undefined ? "Ikke oppgitt" : new Date(data.Established).toLocaleDateString() }</Table.Cell>
         </Table.Row>
         <Table.Row>
           <Table.Cell>Status</Table.Cell>

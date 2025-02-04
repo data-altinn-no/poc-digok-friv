@@ -38,6 +38,6 @@ export interface RolesResponse {
   Roller: Role[];
 }
 
-export interface Announcements {
-  Url: string;
-}
+export type Announcements = string;
+export type StotteRegisterUrl = string;
+export type TilskuddsRegisterUrl = string;

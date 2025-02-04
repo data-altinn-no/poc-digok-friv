@@ -3,12 +3,14 @@ import '@digdir/designsystemet-theme/brand/brreg/tokens.css';
 import '@digdir/designsystemet-css';
 import { Heading, Alert, Tabs } from '@digdir/designsystemet-react';
 
-import { UnitBasicInformation, RolesResponse, Announcements } from './types/organization';
+import { UnitBasicInformation, RolesResponse, Announcements, StotteRegisterUrl, TilskuddsRegisterUrl } from './types/organization';
 import { getOrganizationData } from './services/organizationService';
 import { BasicInformation } from './components/BasicInformation';
 import { RolesInformation } from './components/RolesInformation';
 import { AnnouncementsInformation } from './components/AnnouncementsInformation';
 import { SearchForm } from './components/SearchForm';
+import { GrantRegistry } from './components/GrantRegistry';
+import { SubsidiesRegistry } from "./components/SubsidiesRegistry"
 
 const brregPrimaryColor = '#133349';
 
@@ -17,6 +19,8 @@ function App() {
   const [basicInfo, setBasicInfo] = useState<UnitBasicInformation | null>(null);
   const [roles, setRoles] = useState<RolesResponse | null>(null);
   const [announcements, setAnnouncements] = useState<Announcements | null>(null);
+  const [stotteregister, setStotteregister] = useState<StotteRegisterUrl | null>(null);
+  const [tilskudd, setTilskudd] = useState<TilskuddsRegisterUrl | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState('basic');
 
@@ -26,6 +30,8 @@ function App() {
       setBasicInfo(data.basicInfo);
       setRoles(data.roles);
       setAnnouncements(data.announcements);
+      setStotteregister(data.stotteregisterUrl);
+      setTilskudd(data.tilskuddsregisterUrl);
       setError(null);
     } catch (err: any) {
       setError(err.message);
@@ -88,12 +94,14 @@ function App() {
           <Tabs.Tab value="basic">Grunndata</Tabs.Tab>
           <Tabs.Tab value="roles">Roller</Tabs.Tab>
           <Tabs.Tab value="announcements">Kunngjøringer</Tabs.Tab>
+          <Tabs.Tab value="stotteregister">Støtteregister</Tabs.Tab>
+          <Tabs.Tab value="tilskudd">Tilskudd.no</Tabs.Tab>
         </Tabs.List>
         <Tabs.Content value="basic">{basicInfo && <BasicInformation data={basicInfo} />}</Tabs.Content>
         <Tabs.Content value="roles">{roles && <RolesInformation data={roles} />}</Tabs.Content>
-        <Tabs.Content value="announcements">
-          {announcements && <AnnouncementsInformation data={announcements} />}
-        </Tabs.Content>
+        <Tabs.Content value="announcements">{announcements && <AnnouncementsInformation data={announcements} />}</Tabs.Content>
+        <Tabs.Content value="stotteregister">{stotteregister && <GrantRegistry data={stotteregister} />}</Tabs.Content>
+        <Tabs.Content value="tilskudd">{tilskudd && <SubsidiesRegistry data={tilskudd} />}</Tabs.Content>
       </Tabs>
     </div>
   );
