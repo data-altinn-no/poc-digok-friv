@@ -1,7 +1,7 @@
 import { UnitBasicInformation, RolesResponse, Announcements, StotteRegisterUrl, TilskuddsRegisterUrl } from '../types/organization';
 
-const API_URL = process.env.API_URL;
-const subscriptionKey = process.env.SUBSCRIPTION_KEY;
+const API_URL = process.env.REACT_APP_API_URL;
+const subscriptionKey = process.env.REACT_APP_SUBSCRIPTION_KEY;
 
 async function fetchData<T>(endpoint: string, orgNumber: string): Promise<T | null> {
   const headers: HeadersInit = {
