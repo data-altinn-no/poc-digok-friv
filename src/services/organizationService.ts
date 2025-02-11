@@ -1,7 +1,7 @@
 import { UnitBasicInformation, RolesResponse, Announcements, StotteRegisterUrl, TilskuddsRegisterUrl } from '../types/organization';
 
-const API_URL = process.env.REACT_APP_API_URL;
-const subscriptionKey = process.env.REACT_APP_SUBSCRIPTION_KEY;
+const API_URL = 'https://test-api.data.altinn.no/v1/opendata';
+const subscriptionKey = '65b2e5975b7b41a091fd182a9e72445a';
 
 async function fetchData<T>(endpoint: string, orgNumber: string): Promise<T | null> {
   const headers: HeadersInit = {
