@@ -1,4 +1,13 @@
-import { UnitBasicInformation, RolesResponse, Announcements, StotteRegisterUrl, TilskuddsRegisterUrl, AnnualFinancialReport, CertificateOfRegistration, CertificatePrintOut } from '../types/organization';
+import {
+  UnitBasicInformation,
+  RolesResponse,
+  Announcements,
+  StotteRegisterUrl,
+  TilskuddsRegisterUrl,
+  AnnualFinancialReport,
+  CertificateOfRegistration,
+  CertificatePrintOut,
+} from '../types/organization';
 import { AnnualAccounts } from '../types/annualaccounts';
 import { Rettsstiftelser } from '../types/rettsstiftelser';
 
@@ -15,15 +24,16 @@ async function fetchData<T>(endpoint: string, orgNumber: string): Promise<T | nu
   }
 
   try {
-    const response = await fetch(`${API_URL}/${endpoint}/${orgNumber}`, {
+    const encodedOrgNumber = encodeURIComponent(orgNumber.trim());
+    const response = await fetch(`${API_URL}/${endpoint}/${encodedOrgNumber}`, {
       method: 'GET',
       headers,
     });
 
     if (!response.ok) {
       const text = await response.text();
-      console.warn(`Failed to fetch ${endpoint}: ${text || `HTTP error! status: ${response.status}`}`);
-      return null;
+      const error = `Failed to fetch ${endpoint}: ${text || `HTTP error! status: ${response.status}`}`;
+      throw new Error(error);
     }
 
     const text = await response.text();
@@ -36,35 +46,153 @@ async function fetchData<T>(endpoint: string, orgNumber: string): Promise<T | nu
     return JSON.parse(text);
   } catch (error) {
     console.error(`Error fetching ${endpoint}:`, error);
-    return null;
+    throw error;
   }
 }
 
-export async function getOrganizationData(orgNumber: string, useMock: boolean = false) {
-  
-  const [basicInfo, roles, announcements, stotteregisterurl, tilskuddsregisterurl, aarsrapporter, firmaattest, regnskap, registerutskrift, rettsstiftelser] = await Promise.all([
-    fetchData<UnitBasicInformation>('UnitBasicInformation', orgNumber),
-    fetchData<RolesResponse>('Roller', orgNumber),
-    fetchData<Announcements>('Kunngjoringer', orgNumber),
-    fetchData<StotteRegisterUrl>('StotteregisteretUrl', orgNumber),
-    fetchData<TilskuddsRegisterUrl>('TilskuddsregisteretUrl', orgNumber),
-    fetchData<AnnualFinancialReport>('AnnualFinancialReportOpen', orgNumber),
-    fetchData<CertificateOfRegistration>('CertificateOfRegistrationOpen', orgNumber),
-    fetchData<AnnualAccounts>('RegnskapsregisteretOpen', orgNumber),
-    fetchData<CertificatePrintOut>('Registerutskrift', orgNumber),
-    fetchData<Rettsstiftelser>('RettsstiftelserVirksomhetOpen', '810304642')
-  ]);
+type DataCallbacks = {
+  onBasicInfo?: (data: UnitBasicInformation | null) => void;
+  onRoles?: (data: RolesResponse | null) => void;
+  onAnnouncements?: (data: Announcements | null) => void;
+  onStotteregister?: (data: StotteRegisterUrl | null) => void;
+  onTilskudd?: (data: TilskuddsRegisterUrl | null) => void;
+  onAarsrapport?: (data: AnnualFinancialReport | null) => void;
+  onFirmaattest?: (data: CertificateOfRegistration | null) => void;
+  onRegnskap?: (data: AnnualAccounts | null) => void;
+  onRegisterutskrift?: (data: CertificatePrintOut | null) => void;
+  onRettsstiftelser?: (data: Rettsstiftelser | null) => void;
+  onComplete?: () => void;
+  onError?: (error: any) => void;
+};
+
+export function getOrganizationData(orgNumber: string) {
+  let callbacks: DataCallbacks = {};
+
+  const subscribe = (newCallbacks: DataCallbacks) => {
+    callbacks = { ...callbacks, ...newCallbacks };
+  };
+
+  const getBasicInfo = async () => {
+    try {
+      const data = await fetchData<UnitBasicInformation>('UnitBasicInformation', orgNumber);
+      callbacks.onBasicInfo?.(data);
+      return data;
+    } catch (error) {
+      callbacks.onError?.(error);
+      return null;
+    }
+  };
+
+  const getRoles = async () => {
+    try {
+      const data = await fetchData<RolesResponse>('Roller', orgNumber);
+      callbacks.onRoles?.(data);
+      return data;
+    } catch (error) {
+      callbacks.onError?.(error);
+      return null;
+    }
+  };
+
+  const getAnnouncements = async () => {
+    try {
+      const data = await fetchData<Announcements>('Kunngjoringer', orgNumber);
+      callbacks.onAnnouncements?.(data);
+      return data;
+    } catch (error) {
+      callbacks.onError?.(error);
+      return null;
+    }
+  };
+
+  const getStotteregister = async () => {
+    try {
+      const data = await fetchData<StotteRegisterUrl>('StotteregisteretUrl', orgNumber);
+      callbacks.onStotteregister?.(data);
+      return data;
+    } catch (error) {
+      callbacks.onError?.(error);
+      return null;
+    }
+  };
+
+  const getTilskudd = async () => {
+    try {
+      const data = await fetchData<TilskuddsRegisterUrl>('TilskuddsregisteretUrl', orgNumber);
+      callbacks.onTilskudd?.(data);
+      return data;
+    } catch (error) {
+      callbacks.onError?.(error);
+      return null;
+    }
+  };
+
+  const getAarsrapport = async () => {
+    try {
+      const data = await fetchData<AnnualFinancialReport>('AnnualFinancialReportOpen', orgNumber);
+      callbacks.onAarsrapport?.(data);
+      return data;
+    } catch (error) {
+      callbacks.onError?.(error);
+      return null;
+    }
+  };
+
+  const getFirmaattest = async () => {
+    try {
+      const data = await fetchData<CertificateOfRegistration>('Firmaattest', orgNumber);
+      callbacks.onFirmaattest?.(data);
+      return data;
+    } catch (error) {
+      callbacks.onError?.(error);
+      return null;
+    }
+  };
+
+  const getRegnskap = async () => {
+    try {
+      const data = await fetchData<AnnualAccounts>('Regnskap', orgNumber);
+      callbacks.onRegnskap?.(data);
+      return data;
+    } catch (error) {
+      callbacks.onError?.(error);
+      return null;
+    }
+  };
+
+  const getRegisterutskrift = async () => {
+    try {
+      const data = await fetchData<CertificatePrintOut>('Registerutskrift', orgNumber);
+      callbacks.onRegisterutskrift?.(data);
+      return data;
+    } catch (error) {
+      callbacks.onError?.(error);
+      return null;
+    }
+  };
+
+  const getRettsstiftelser = async () => {
+    try {
+      const data = await fetchData<Rettsstiftelser>('Rettsstiftelser', orgNumber);
+      callbacks.onRettsstiftelser?.(data);
+      return data;
+    } catch (error) {
+      callbacks.onError?.(error);
+      return null;
+    }
+  };
 
   return {
-    basicInfo: basicInfo || null,
-    roles: roles || null,
-    announcements: announcements || null,
-    stotteregisterUrl : stotteregisterurl || null,
-    tilskuddsregisterUrl : tilskuddsregisterurl || null,
-    aarsrapporter : aarsrapporter || null,
-    firmaattest: firmaattest || null,
-    regnskap: regnskap || null,
-    registerutskrift: registerutskrift || null,
-    rettsstiftelser: rettsstiftelser || null
+    subscribe,
+    getBasicInfo,
+    getRoles,
+    getAnnouncements,
+    getStotteregister,
+    getTilskudd,
+    getAarsrapport,
+    getFirmaattest,
+    getRegnskap,
+    getRegisterutskrift,
+    getRettsstiftelser,
   };
 }
