@@ -140,7 +140,7 @@ export function getOrganizationData(orgNumber: string) {
 
   const getFirmaattest = async () => {
     try {
-      const data = await fetchData<CertificateOfRegistration>('Firmaattest', orgNumber);
+      const data = await fetchData<CertificateOfRegistration>('UnitBasicInformation', orgNumber);
       callbacks.onFirmaattest?.(data);
       return data;
     } catch (error) {
@@ -151,7 +151,7 @@ export function getOrganizationData(orgNumber: string) {
 
   const getRegnskap = async () => {
     try {
-      const data = await fetchData<AnnualAccounts>('Regnskap', orgNumber);
+      const data = await fetchData<AnnualAccounts>('RegnskapsregisteretOpen', orgNumber);
       callbacks.onRegnskap?.(data);
       return data;
     } catch (error) {
@@ -173,7 +173,7 @@ export function getOrganizationData(orgNumber: string) {
 
   const getRettsstiftelser = async () => {
     try {
-      const data = await fetchData<Rettsstiftelser>('Rettsstiftelser', orgNumber);
+      const data = await fetchData<Rettsstiftelser>('RettsstiftelserVirksomhetOpen', orgNumber);
       callbacks.onRettsstiftelser?.(data);
       return data;
     } catch (error) {
