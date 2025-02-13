@@ -24,6 +24,13 @@ export interface UnitBasicInformation {
   IsBeingDissolved: boolean;
   IsUnderBankruptcy: boolean;
   IsBeingForciblyDissolved: boolean;
+  IsInRegistryOfNonProfitOrganizations: boolean;
+  CreatedInNonProfitRegistry: string;
+  SectorCode: string;
+  SectorCodeDescription: string;
+  Activity: string; 
+  Email: string;
+  HomePage: string;
 }
 
 export interface Role {
@@ -41,3 +48,17 @@ export interface RolesResponse {
 export type Announcements = string;
 export type StotteRegisterUrl = string;
 export type TilskuddsRegisterUrl = string;
+
+export interface AnnualFinancialReport {
+  Year1: string;
+  Year1PdfUrl: string;
+  Year2: string;
+  Year2PdfUrl: string;  
+  Year3: string;
+  Year3PdfUrl: string;
+}
+
+export type CertificateOfRegistration = string;
+
+export type CertificatePrintOut = string;
+

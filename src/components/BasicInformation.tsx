@@ -41,6 +41,14 @@ export const BasicInformation: React.FC<Props> = ({ data }) => {
           </Table.Cell>
         </Table.Row>
         <Table.Row>
+          <Table.Cell>E-post</Table.Cell>
+          <Table.Cell>{data.Email }</Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell>Hjemmeside</Table.Cell>
+          <Table.Cell>{data.HomePage }</Table.Cell>
+        </Table.Row>
+        <Table.Row>
           <Table.Cell>Næringskoder</Table.Cell>
           <Table.Cell>
             {data.IndustryCode1} - {data.IndustryCode1Description}
@@ -57,6 +65,10 @@ export const BasicInformation: React.FC<Props> = ({ data }) => {
               </>
             )}
           </Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell>Sektor</Table.Cell>
+          <Table.Cell>{data.SectorCode + " - " + data.SectorCodeDescription }</Table.Cell>
         </Table.Row>
         <Table.Row>
           <Table.Cell>Har ansatte</Table.Cell>
@@ -79,6 +91,18 @@ export const BasicInformation: React.FC<Props> = ({ data }) => {
             {!data.IsBeingDissolved && !data.IsUnderBankruptcy && !data.IsBeingForciblyDissolved && 
               <div>Aktiv</div>
             }
+          </Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell>Registrert i frivillighetsregisteret</Table.Cell>
+          <Table.Cell>
+            {data.IsInRegistryOfNonProfitOrganizations == undefined ? "Nei" : "Ja"}          
+          </Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell>Dato registrert i frivillighetsregisteret</Table.Cell>
+          <Table.Cell>
+            { data.CreatedInNonProfitRegistry === undefined ? "Ikke oppgitt" : new Date(data.CreatedInNonProfitRegistry).toLocaleDateString() }          
           </Table.Cell>
         </Table.Row>
       </Table.Body>
