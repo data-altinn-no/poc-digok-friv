@@ -173,7 +173,7 @@ export function getOrganizationData(orgNumber: string) {
 
   const getRettsstiftelser = async () => {
     try {
-      const data = await fetchData<Rettsstiftelser>('RettsstiftelserVirksomhetOpen', orgNumber);
+      const data = await fetchData<Rettsstiftelser>('RettsstiftelserVirksomhetOpen', '810304642');
       callbacks.onRettsstiftelser?.(data);
       return data;
     } catch (error) {
