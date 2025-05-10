@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@actions/core": "1.6.0",
+    "@actions/core": "1.9.1",
     "@actions/http-client": "^2.2.3",
     "@digdir/designsystemet": "^1.0.0-next.43",
     "@digdir/designsystemet-css": "^0.10.0",
