@@ -7,6 +7,7 @@ import {
   AnnualFinancialReport,
   CertificateOfRegistration,
   CertificatePrintOut,
+  OrgNumber,
 } from '../types/organization';
 import { AnnualAccounts } from '../types/annualaccounts';
 import { Rettsstiftelser } from '../types/rettsstiftelser';
@@ -54,7 +55,7 @@ async function fetchData<T>(endpoint: string, orgNumber: string): Promise<T | nu
 type DataCallbacks = {
   onBasicInfo?: (data: Grunndata | null) => void;
   onRoles?: (data: RolesResponse | null) => void;
-  onAnnouncements?: (data: Announcements | null) => void;
+  onStotteordninger?: (data: OrgNumber | null) => void;
   onStotteregister?: (data: StotteRegisterUrl | null) => void;
   onTilskudd?: (data: TilskuddsRegisterUrl | null) => void;
   onAarsrapport?: (data: AnnualFinancialReport | null) => void;
@@ -98,10 +99,10 @@ export function getOrganizationData(orgNumber: string) {
     }
   };
 
-  const getAnnouncements = async () => {
+  const getStotteordninger = async () => {
     try {
-      const data = await fetchData<Announcements>('Kunngjoringer', orgNumber);
-      callbacks.onAnnouncements?.(data);
+      const data = orgNumber;
+      callbacks.onStotteordninger?.(data);
       return data;
     } catch (error) {
       callbacks.onError?.(error);
@@ -190,7 +191,7 @@ export function getOrganizationData(orgNumber: string) {
     subscribe,
     getBasicInfo,
     getRoles,
-    getAnnouncements,
+    getStotteordninger,
     getStotteregister,
     getTilskudd,
     getAarsrapport,

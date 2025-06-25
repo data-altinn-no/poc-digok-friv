@@ -62,3 +62,5 @@ export type CertificateOfRegistration = string;
 
 export type CertificatePrintOut = string;
 
+export type OrgNumber = string;
+

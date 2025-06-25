@@ -24,7 +24,7 @@ export type DataState<T> = {
 export function useOrganizationData() {
   const [basicInfo, setBasicInfo] = useState<DataState<Grunndata>>({  data: null,  loading: false });  
   const [roles, setRoles] = useState<DataState<RolesResponse>>({ data: null, loading: false });
-  const [announcements, setAnnouncements] = useState<DataState<Announcements>>({ data: null, loading: false });
+  const [stotteordninger, setStotteordninger] = useState<DataState<Announcements>>({ data: null, loading: false });
   const [stotteregister, setStotteregister] = useState<DataState<StotteRegisterUrl>>({ data: null, loading: false });
   const [tilskudd, setTilskudd] = useState<DataState<TilskuddsRegisterUrl>>({ data: null, loading: false });
   const [aarsrapport, setAarsrapport] = useState<DataState<AnnualFinancialReport>>({ data: null, loading: false });
@@ -41,7 +41,7 @@ export function useOrganizationData() {
     const initialState = { data: null, loading, error: undefined };
     setBasicInfo(initialState);
     setRoles(initialState);
-    setAnnouncements(initialState);
+    setStotteordninger(initialState);
     setStotteregister(initialState);
     setTilskudd(initialState);
     setAarsrapport(initialState);
@@ -63,7 +63,7 @@ export function useOrganizationData() {
       const datasetHandlers: Record<string, (msg: string) => void> = {
         unitbasicinformation: (msg) => setBasicInfo((prev) => ({ ...prev, loading: false, error: msg })),
         roller: (msg) => setRoles((prev) => ({ ...prev, loading: false, error: msg })),
-        kunngjoringer: (msg) => setAnnouncements((prev) => ({ ...prev, loading: false, error: msg })),
+        stotteordninger: (msg) => setStotteordninger((prev) => ({ ...prev, loading: false, error: msg })),
         stotteregistereturl: (msg) => setStotteregister((prev) => ({ ...prev, loading: false, error: msg })),
         tilskuddsregistereturl: (msg) => setTilskudd((prev) => ({ ...prev, loading: false, error: msg })),
         annualfinancialreportopen: (msg) => setAarsrapport((prev) => ({ ...prev, loading: false, error: msg })),
@@ -112,7 +112,7 @@ export function useOrganizationData() {
         subscribe,
         getBasicInfo,
         getRoles,
-        getAnnouncements,
+        getStotteordninger,
         getStotteregister,
         getTilskudd,
         getAarsrapport,
@@ -131,7 +131,7 @@ export function useOrganizationData() {
           setBasicInfo({ data, loading: false });
         },
         onRoles: (data) => setRoles({ data, loading: false }),
-        onAnnouncements: (data) => setAnnouncements({ data, loading: false }),
+        onStotteordninger: (data) => setStotteordninger({ data, loading: false }),
         onStotteregister: (data) => setStotteregister({ data, loading: false }),
         onTilskudd: (data) => setTilskudd({ data, loading: false }),
         onAarsrapport: (data) => setAarsrapport({ data, loading: false }),
@@ -145,7 +145,7 @@ export function useOrganizationData() {
       await Promise.all([
         getBasicInfo(),
         getRoles(),
-        getAnnouncements(),
+        getStotteordninger(),
         getStotteregister(),
         getTilskudd(),
         getAarsrapport(),
@@ -163,7 +163,7 @@ export function useOrganizationData() {
     states: {
       basicInfo,
       roles,
-      announcements,
+      stotteordninger,
       stotteregister,
       tilskudd,
       aarsrapport,

@@ -3,7 +3,7 @@ import { Alert, Tabs, Spinner, Link } from '@digdir/designsystemet-react';
 import { useOrganizationData } from '../hooks/useOrganizationData';
 import { BasicInformation } from './BasicInformation';
 import { RolesInformation } from './RolesInformation';
-import { AnnouncementsInformation } from './AnnouncementsInformation';
+import { GrantArrangementsInformation } from './GrantArrangements';
 import { GrantRegistry } from './GrantRegistry';
 import { SubsidiesRegistry } from './SubsidiesRegistry';
 import { AnnualFinancialReportInformation } from './AnnualFinancialReport';
@@ -22,7 +22,7 @@ export function OrganizationViewer({ states }: OrganizationViewerProps) {
   const {
     basicInfo,
     roles,
-    announcements,
+    stotteordninger,
     stotteregister,
     tilskudd,
     aarsrapport,
@@ -45,7 +45,7 @@ export function OrganizationViewer({ states }: OrganizationViewerProps) {
         <Tabs.List>
           <Tabs.Tab value="basic">Grunndata</Tabs.Tab>
           <Tabs.Tab value="roles">Roller</Tabs.Tab>
-          <Tabs.Tab value="announcements">Kunngjøringer</Tabs.Tab>
+          <Tabs.Tab value="stotteordninger">Støtteordninger</Tabs.Tab>
           <Tabs.Tab value="stotteregister">Støtteregister</Tabs.Tab>
           <Tabs.Tab value="tilskudd">Tilskudd</Tabs.Tab>
           <Tabs.Tab value="aarsrapporter">Årsrapporter</Tabs.Tab>
@@ -80,15 +80,15 @@ export function OrganizationViewer({ states }: OrganizationViewerProps) {
           )}
         </Tabs.Content>
 
-        <Tabs.Content value="announcements">
-          {announcements.loading ? (
+        <Tabs.Content value="stotteordninger">
+        {stotteordninger.loading ? (
             <div style={{ display: 'flex', justifyContent: 'center', margin: '1rem' }}>
-              <Spinner size="xlarge" variant="interaction" title="Laster kunngjøringer..." />
+              <Spinner size="xlarge" variant="interaction" title="Laster støtteordninger..." />
             </div>
-          ) : announcements.error ? (
-            <Alert severity="danger" style={{ margin: '1rem 0' }}>{announcements.error}</Alert>
+          ) : stotteregister.error ? (
+            <Alert severity="danger" style={{ margin: '1rem 0' }}>{stotteordninger.error}</Alert>
           ) : (
-            announcements.data && <AnnouncementsInformation data={announcements.data} />
+            stotteordninger.data && <GrantArrangementsInformation data={stotteordninger.data} />
           )}
         </Tabs.Content>
 
