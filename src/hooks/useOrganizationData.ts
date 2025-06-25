@@ -12,6 +12,8 @@ import {
 import { AnnualAccounts } from '../types/annualaccounts';
 import { Rettsstiftelser } from '../types/rettsstiftelser';
 import { getOrganizationData } from '../services/organizationService';
+import { CertificateOfRegistrationInformation } from '../components/CertificateOfRegistration';
+import { Grunndata } from '../types/complextype';
 
 export type DataState<T> = {
   data: T | null;
@@ -20,7 +22,7 @@ export type DataState<T> = {
 };
 
 export function useOrganizationData() {
-  const [basicInfo, setBasicInfo] = useState<DataState<UnitBasicInformation>>({ data: null, loading: false });
+  const [basicInfo, setBasicInfo] = useState<DataState<Grunndata>>({  data: null,  loading: false });  
   const [roles, setRoles] = useState<DataState<RolesResponse>>({ data: null, loading: false });
   const [announcements, setAnnouncements] = useState<DataState<Announcements>>({ data: null, loading: false });
   const [stotteregister, setStotteregister] = useState<DataState<StotteRegisterUrl>>({ data: null, loading: false });
@@ -122,10 +124,10 @@ export function useOrganizationData() {
 
       subscribe({
         onBasicInfo: (data) => {
-          if (data?.IsInRegistryOfNonProfitOrganizations === false) {
+          if (data?.unitbasic.IsInRegistryOfNonProfitOrganizations === false) {
             handleError('Ikke frivillig organisasjon!');
             return;
-          }
+          } 
           setBasicInfo({ data, loading: false });
         },
         onRoles: (data) => setRoles({ data, loading: false }),

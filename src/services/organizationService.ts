@@ -10,6 +10,7 @@ import {
 } from '../types/organization';
 import { AnnualAccounts } from '../types/annualaccounts';
 import { Rettsstiftelser } from '../types/rettsstiftelser';
+import { Grunndata } from '../types/complextype';
 
 const API_URL = 'https://test-api.data.altinn.no/v1/opendata';
 const subscriptionKey = '65b2e5975b7b41a091fd182a9e72445a';
@@ -51,7 +52,7 @@ async function fetchData<T>(endpoint: string, orgNumber: string): Promise<T | nu
 }
 
 type DataCallbacks = {
-  onBasicInfo?: (data: UnitBasicInformation | null) => void;
+  onBasicInfo?: (data: Grunndata | null) => void;
   onRoles?: (data: RolesResponse | null) => void;
   onAnnouncements?: (data: Announcements | null) => void;
   onStotteregister?: (data: StotteRegisterUrl | null) => void;
@@ -73,9 +74,12 @@ export function getOrganizationData(orgNumber: string) {
   };
 
   const getBasicInfo = async () => {
-    try {
-      const data = await fetchData<UnitBasicInformation>('UnitBasicInformation', orgNumber);
-      callbacks.onBasicInfo?.(data);
+    try {     
+      const data: any = {};
+      data.unitbasic = await fetchData<UnitBasicInformation>('UnitBasicInformation', orgNumber);
+      data.certofreg = await fetchData<CertificateOfRegistration>('CertificateOfRegistrationOpen', orgNumber);
+      data.announcements = await fetchData<Announcements>('Kunngjoringer', orgNumber);
+      callbacks.onBasicInfo?.(data);      
       return data;
     } catch (error) {
       callbacks.onError?.(error);
