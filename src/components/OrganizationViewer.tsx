@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, Tabs, Spinner } from '@digdir/designsystemet-react';
+import { Alert, Tabs, Spinner, Link } from '@digdir/designsystemet-react';
 import { useOrganizationData } from '../hooks/useOrganizationData';
 import { BasicInformation } from './BasicInformation';
 import { RolesInformation } from './RolesInformation';
@@ -53,6 +53,7 @@ export function OrganizationViewer({ states }: OrganizationViewerProps) {
           <Tabs.Tab value="regnskap">Regnskap</Tabs.Tab>
           <Tabs.Tab value="registerutskrift">Registerutskrift</Tabs.Tab>
           <Tabs.Tab value="losore">Heftelser</Tabs.Tab>
+          <Tabs.Tab value="systemintegrasjon">Systemintegrasjon</Tabs.Tab>
         </Tabs.List>
 
         <Tabs.Content value="basic">
@@ -173,6 +174,14 @@ export function OrganizationViewer({ states }: OrganizationViewerProps) {
           ) : (
             rettsstiftelser.data && <RettsstiftelserInformation data={rettsstiftelser.data} />
           )}
+        </Tabs.Content>
+
+        <Tabs.Content value="systemintegrasjon">
+          {
+            <p>Her kommer det informasjon om hvordan man kan hente inn disse dataene fra eget fagsystem for å automatisere prosesser.<br></br>
+            Inntil videre kan man på dokumentasjonen til <Link href={'https://docs.data.altinn.no'} target="_blank" rel="noopener noreferrer">data.altinn.no</Link>
+            </p>
+          }
         </Tabs.Content>
       </Tabs>
     </div>
