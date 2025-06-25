@@ -46,14 +46,21 @@ export function OrganizationViewer({ states }: OrganizationViewerProps) {
           <Tabs.Tab value="basic">Grunndata</Tabs.Tab>
           <Tabs.Tab value="roles">Roller</Tabs.Tab>
           <Tabs.Tab value="stotteordninger">Støtteordninger</Tabs.Tab>
-          <Tabs.Tab value="stotteregister">Støtteregister</Tabs.Tab>
+          <Tabs.Tab value="regnskap">Årsregnskap</Tabs.Tab>
+          <Tabs.Tab value="losore">Heftelser</Tabs.Tab>
+          <Tabs.Tab value="frivreg">Frivillighetsregisteret</Tabs.Tab>
+          <Tabs.Tab value="systemintegrasjon">Systemintegrasjon</Tabs.Tab>
+          
+          {/*
+          Old tabs that may be removed
+                    <Tabs.Tab value="stotteregister">Støtteregister</Tabs.Tab>
           <Tabs.Tab value="tilskudd">Tilskudd</Tabs.Tab>
           <Tabs.Tab value="aarsrapporter">Årsrapporter</Tabs.Tab>
           <Tabs.Tab value="firmaattest">Firmaattest</Tabs.Tab>
-          <Tabs.Tab value="regnskap">Regnskap</Tabs.Tab>
-          <Tabs.Tab value="registerutskrift">Registerutskrift</Tabs.Tab>
-          <Tabs.Tab value="losore">Heftelser</Tabs.Tab>
-          <Tabs.Tab value="systemintegrasjon">Systemintegrasjon</Tabs.Tab>
+          <Tabs.Tab value="registerutskrift">Registerutskrift</Tabs.Tab>           
+          */}
+
+
         </Tabs.List>
 
         <Tabs.Content value="basic">
@@ -178,8 +185,25 @@ export function OrganizationViewer({ states }: OrganizationViewerProps) {
 
         <Tabs.Content value="systemintegrasjon">
           {
-            <p>Her kommer det informasjon om hvordan man kan hente inn disse dataene fra eget fagsystem for å automatisere prosesser.<br></br>
-            Inntil videre kan man på dokumentasjonen til <Link href={'https://docs.data.altinn.no'} target="_blank" rel="noopener noreferrer">data.altinn.no</Link>
+            <p>
+            Informasjon om hvordan du kommer i gang med å integrere ditt system med <Link href="https://data.altinn.no">data.altinn.no</Link><br></br>          
+
+            For å ta bruk data.altinn.no må du:
+            <ul>
+              <li>Identifisere hvilke datasett du ønsker å bruke, og dermed hvilken tjeneste som er aktuell for deg.</li>
+              <li>Registrere deg på utviklerportalen (du kan også velge preproduksjonsmiljøet hvor du kan bruke syntetiske data) og få tildelt en API-nøkkel (subscription key)</li>
+              <li>Ta i bruk Maskinporten slik at du kan autentisere deg for tjenesten. For tilgang i produksjon til eventuelle scopes som kreves for tjenesten du ønsker å benytte må du kontakte oss.</li>
+              <li>Se listen over datasett og ta utgangspunkt i eksemplene for å lage din integrasjon. Hvis du benytter .NET5 eller nyere anbefaler vi bruk av DAN SDK</li>
+            </ul>
+            </p>
+          }
+        </Tabs.Content>
+
+        <Tabs.Content value="frivreg">
+          {
+            <p>
+            <Link href="https://data.brreg.no/frivillighetsregisteret/api/frivillige-organisasjoner/totalbestand/csv" target="_blank" rel="noopener noreferrer">Totalbestand fra Frivillighetsregisteret</Link><br></br>
+            <Link href="https://data.brreg.no/enhetsregisteret/api/dokumentasjon/no/index.html#tag/Frivillighetsregisteret" target="_blank" rel="noopener noreferrer">Forklaring på feltene i filen og dokumentasjonen</Link>
             </p>
           }
         </Tabs.Content>

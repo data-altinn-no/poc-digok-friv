@@ -3,6 +3,15 @@
 //   import { Convert } from "./file";
 //
 //   const welcome = Convert.toWelcome(json);
+
+import { AnnualFinancialReport } from "./organization";
+
+export interface AnnualAccountsWithLink
+{
+    Accounts: AnnualAccounts;
+    Links: AnnualFinancialReport;
+}
+
 export type AnnualAccounts = Array<AnnualAccountsItem>;
 export interface AnnualAccountsItem {
     id:                       number;

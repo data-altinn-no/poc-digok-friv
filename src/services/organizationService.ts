@@ -9,7 +9,7 @@ import {
   CertificatePrintOut,
   OrgNumber,
 } from '../types/organization';
-import { AnnualAccounts } from '../types/annualaccounts';
+import { AnnualAccounts, AnnualAccountsWithLink } from '../types/annualaccounts';
 import { Rettsstiftelser } from '../types/rettsstiftelser';
 import { Grunndata } from '../types/complextype';
 
@@ -60,7 +60,7 @@ type DataCallbacks = {
   onTilskudd?: (data: TilskuddsRegisterUrl | null) => void;
   onAarsrapport?: (data: AnnualFinancialReport | null) => void;
   onFirmaattest?: (data: CertificateOfRegistration | null) => void;
-  onRegnskap?: (data: AnnualAccounts | null) => void;
+  onRegnskap?: (data: AnnualAccountsWithLink | null) => void;
   onRegisterutskrift?: (data: CertificatePrintOut | null) => void;
   onRettsstiftelser?: (data: Rettsstiftelser | null) => void;
   onComplete?: () => void;
@@ -156,7 +156,9 @@ export function getOrganizationData(orgNumber: string) {
 
   const getRegnskap = async () => {
     try {
-      const data = await fetchData<AnnualAccounts>('RegnskapsregisteretOpen', orgNumber);
+      const data: any = {};
+      data.Accounts = await fetchData<AnnualAccounts>('RegnskapsregisteretOpen', orgNumber);
+      data.Links = await fetchData<CertificateOfRegistration>('AnnualFinancialReportOpen', orgNumber);
       callbacks.onRegnskap?.(data);
       return data;
     } catch (error) {

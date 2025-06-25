@@ -9,7 +9,7 @@ import {
   CertificateOfRegistration,
   CertificatePrintOut,
 } from '../types/organization';
-import { AnnualAccounts } from '../types/annualaccounts';
+import { AnnualAccounts, AnnualAccountsWithLink } from '../types/annualaccounts';
 import { Rettsstiftelser } from '../types/rettsstiftelser';
 import { getOrganizationData } from '../services/organizationService';
 import { CertificateOfRegistrationInformation } from '../components/CertificateOfRegistration';
@@ -29,7 +29,7 @@ export function useOrganizationData() {
   const [tilskudd, setTilskudd] = useState<DataState<TilskuddsRegisterUrl>>({ data: null, loading: false });
   const [aarsrapport, setAarsrapport] = useState<DataState<AnnualFinancialReport>>({ data: null, loading: false });
   const [firmaattest, setFirmaattest] = useState<DataState<CertificateOfRegistration>>({ data: null, loading: false });
-  const [regnskap, setRegnskap] = useState<DataState<AnnualAccounts>>({ data: null, loading: false });
+  const [regnskap, setRegnskap] = useState<DataState<AnnualAccountsWithLink>>({ data: null, loading: false });
   const [registerutskrift, setRegisterutskrift] = useState<DataState<CertificatePrintOut>>({
     data: null,
     loading: false,
