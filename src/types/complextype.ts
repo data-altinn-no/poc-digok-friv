@@ -4,4 +4,7 @@ export interface Grunndata {
     unitbasic:  UnitBasicInformation;
     certofreg: CertificateOfRegistration;
     announcements: Announcements;
+    volOrg: FrivilligOrganisasjon;
 }
+
+

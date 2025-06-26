@@ -107,12 +107,12 @@ export const BasicInformation: React.FC<Props> = ({ data }) => {
             { data.unitbasic.CreatedInNonProfitRegistry === undefined ? "Ikke oppgitt" : new Date(data.unitbasic.CreatedInNonProfitRegistry).toLocaleDateString() }          
           </Table.Cell>
         </Table.Row>
-        <Table.Row><Table.Cell>Kontonummer</Table.Cell><Table.Cell></Table.Cell></Table.Row>
-        <Table.Row><Table.Cell>Grasrotandel</Table.Cell><Table.Cell></Table.Cell></Table.Row>
-        <Table.Row><Table.Cell>Kategori</Table.Cell><Table.Cell></Table.Cell></Table.Row>
-        <Table.Row><Table.Cell>Påtatt regnskapsrapportering</Table.Cell><Table.Cell></Table.Cell></Table.Row>
-        <Table.Row><Table.Cell>Påtatt å melde vedtekter</Table.Cell><Table.Cell></Table.Cell></Table.Row>
-        <Table.Row><Table.Cell>Siste oppdatering av vedtekter</Table.Cell><Table.Cell></Table.Cell></Table.Row>
+        <Table.Row><Table.Cell>Kontonummer</Table.Cell><Table.Cell>{ data.volOrg.kontonummer == undefined ? ""  : data.volOrg.kontonummer }</Table.Cell></Table.Row>
+        <Table.Row><Table.Cell>Grasrotandel</Table.Cell><Table.Cell>{ data.volOrg.grasrotandel?.deltarI == undefined || data.volOrg.grasrotandel.deltarI == false ? "Nei" : "Ja" }</Table.Cell></Table.Row>
+        <Table.Row><Table.Cell>Kategori</Table.Cell><Table.Cell>{ data.volOrg.icnpoKategorier?.map(k => k.kategori).join(', ') }</Table.Cell></Table.Row>
+        <Table.Row><Table.Cell>Påtatt regnskapsrapportering</Table.Cell><Table.Cell>{ data.volOrg.regnskapsrapportering?.harPaatattSegRapporteringsplikt == undefined || data.volOrg.regnskapsrapportering?.harPaatattSegRapporteringsplikt == false ? "Nei" : "Ja" }</Table.Cell></Table.Row>
+        <Table.Row><Table.Cell>Påtatt å melde vedtekter</Table.Cell><Table.Cell>{ data.volOrg.vedtekter?.frivilligRegistrerteVedtekter == undefined || data.volOrg.vedtekter?.frivilligRegistrerteVedtekter == false ? "Nei" : "Ja" } </Table.Cell></Table.Row>
+        <Table.Row><Table.Cell>Siste oppdatering av vedtekter</Table.Cell><Table.Cell>{ data.volOrg.vedtekter?.sistOppdaterteVedtekter == undefined ? "Ingen" : data.volOrg.vedtekter?.sistOppdaterteVedtekter  }</Table.Cell></Table.Row>
         <Table.Row><Table.Cell></Table.Cell></Table.Row>
         <Table.Row><Table.Cell><Link href={data.certofreg} target="_blank" rel="noopener noreferrer">Firmaattest i pdf-format</Link></Table.Cell><Table.Cell></Table.Cell></Table.Row>
         <Table.Row><Table.Cell><Link href={data.announcements} target="_blank" rel="noopener noreferrer" >Se kunngjøringer på brreg.no</Link></Table.Cell><Table.Cell></Table.Cell></Table.Row>

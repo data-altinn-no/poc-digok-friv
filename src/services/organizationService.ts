@@ -80,6 +80,7 @@ export function getOrganizationData(orgNumber: string) {
       data.unitbasic = await fetchData<UnitBasicInformation>('UnitBasicInformation', orgNumber);
       data.certofreg = await fetchData<CertificateOfRegistration>('CertificateOfRegistrationOpen', orgNumber);
       data.announcements = await fetchData<Announcements>('Kunngjoringer', orgNumber);
+      data.volOrg = await fetchData<FrivilligOrganisasjon>('FrivilligOrganisasjon', orgNumber);
       callbacks.onBasicInfo?.(data);      
       return data;
     } catch (error) {
