@@ -13,7 +13,7 @@ import { AnnualAccounts, AnnualAccountsWithLink } from '../types/annualaccounts'
 import { Rettsstiftelser } from '../types/rettsstiftelser';
 import { getOrganizationData } from '../services/organizationService';
 import { CertificateOfRegistrationInformation } from '../components/CertificateOfRegistration';
-import { Grunndata } from '../types/complextype';
+import { Grunndata, Lottstift } from '../types/complextype';
 
 export type DataState<T> = {
   data: T | null;
@@ -35,6 +35,7 @@ export function useOrganizationData() {
     loading: false,
   });
   const [rettsstiftelser, setRettsstiftelser] = useState<DataState<Rettsstiftelser>>({ data: null, loading: false });
+  const [lotteristift, setLotteristift] = useState<DataState<Lottstift>>({ data: null, loading: false });
   const [error, setError] = useState<string | null>(null);
 
   const resetStates = (loading: boolean = false) => {
@@ -49,6 +50,7 @@ export function useOrganizationData() {
     setRegnskap(initialState);
     setRegisterutskrift(initialState);
     setRettsstiftelser(initialState);
+    setLotteristift(initialState);
     setError(null);
   };
 
@@ -71,6 +73,7 @@ export function useOrganizationData() {
         regnskap: (msg) => setRegnskap((prev) => ({ ...prev, loading: false, error: msg })),
         registerutskrift: (msg) => setRegisterutskrift((prev) => ({ ...prev, loading: false, error: msg })),
         rettsstiftelser: (msg) => setRettsstiftelser((prev) => ({ ...prev, loading: false, error: msg })),
+        lotteristift: (msg) => setLotteristift((prev) => ({ ...prev, loading: false, error: msg }))
       };
 
       if (dataset && datasetHandlers[dataset]) {
@@ -120,6 +123,7 @@ export function useOrganizationData() {
         getRegnskap,
         getRegisterutskrift,
         getRettsstiftelser,
+        getLotteristift,
       } = getOrganizationData(orgNumber);
 
       subscribe({
@@ -139,6 +143,7 @@ export function useOrganizationData() {
         onRegnskap: (data) => setRegnskap({ data, loading: false }),
         onRegisterutskrift: (data) => setRegisterutskrift({ data, loading: false }),
         onRettsstiftelser: (data) => setRettsstiftelser({ data, loading: false }),
+        onLottstift: (data) => setLotteristift({ data, loading: false }),
         onError: handleError,
       });
 
@@ -153,6 +158,7 @@ export function useOrganizationData() {
         getRegnskap(),
         getRegisterutskrift(),
         getRettsstiftelser(),
+        getLotteristift()
       ]);
     } catch (err) {
       handleError('Error fetching data');
@@ -171,6 +177,7 @@ export function useOrganizationData() {
       regnskap,
       registerutskrift,
       rettsstiftelser,
+      lotteristift,
       error,
     },
     fetchData,

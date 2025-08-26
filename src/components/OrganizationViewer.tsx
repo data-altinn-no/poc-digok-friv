@@ -11,6 +11,7 @@ import { CertificateOfRegistrationInformation } from './CertificateOfRegistratio
 import { AnnualAccountsInformation } from './AnnualAccounts';
 import { CertificatePrintOutInformation } from './CertificatePrintOut';
 import { RettsstiftelserInformation } from './Rettsstiftelser';
+import { LottstiftInformation } from './Lottstift';
 
 interface OrganizationViewerProps {
   states: ReturnType<typeof useOrganizationData>['states'];
@@ -30,6 +31,7 @@ export function OrganizationViewer({ states }: OrganizationViewerProps) {
     regnskap,
     registerutskrift,
     rettsstiftelser,
+    lotteristift,
     error,
   } = states;
 
@@ -50,7 +52,7 @@ export function OrganizationViewer({ states }: OrganizationViewerProps) {
           <Tabs.Tab value="losore">Heftelser</Tabs.Tab>
           <Tabs.Tab value="frivreg">Frivillighetsregisteret</Tabs.Tab>
           <Tabs.Tab value="systemintegrasjon">Systemintegrasjon</Tabs.Tab>
-          
+          <Tabs.Tab value="lottstift">Lotteri- og stiftelsestilsynet</Tabs.Tab>
           {/*
           Old tabs that may be removed
                     <Tabs.Tab value="stotteregister">Støtteregister</Tabs.Tab>
@@ -180,6 +182,18 @@ export function OrganizationViewer({ states }: OrganizationViewerProps) {
             <Alert severity="danger" style={{ margin: '1rem 0' }}>{rettsstiftelser.error}</Alert>
           ) : (
             rettsstiftelser.data && <RettsstiftelserInformation data={rettsstiftelser.data} />
+          )}
+        </Tabs.Content>
+
+        <Tabs.Content value="lottstift">
+          {lotteristift.loading ? (
+            <div style={{ display: 'flex', justifyContent: 'center', margin: '1rem' }}>
+              <Spinner size="xlarge" variant="interaction" title="Laster ..." />
+            </div>
+          ) : lotteristift.error ? (
+            <Alert severity="danger" style={{ margin: '1rem 0' }}>{lotteristift.error}</Alert>
+          ) : (
+            lotteristift.data && <LottstiftInformation data={lotteristift.data} />
           )}
         </Tabs.Content>
 

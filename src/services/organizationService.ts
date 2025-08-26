@@ -11,7 +11,7 @@ import {
 } from '../types/organization';
 import { AnnualAccounts, AnnualAccountsWithLink } from '../types/annualaccounts';
 import { Rettsstiftelser } from '../types/rettsstiftelser';
-import { Grunndata } from '../types/complextype';
+import { Grunndata, Lottstift } from '../types/complextype';
 
 const API_URL = 'https://test-api.data.altinn.no/v1/opendata';
 const subscriptionKey = '65b2e5975b7b41a091fd182a9e72445a';
@@ -63,6 +63,7 @@ type DataCallbacks = {
   onRegnskap?: (data: AnnualAccountsWithLink | null) => void;
   onRegisterutskrift?: (data: CertificatePrintOut | null) => void;
   onRettsstiftelser?: (data: Rettsstiftelser | null) => void;
+  onLottstift?: (data: Lottstift | null) => void;
   onComplete?: () => void;
   onError?: (error: any) => void;
 };
@@ -190,6 +191,17 @@ export function getOrganizationData(orgNumber: string) {
     }
   };
 
+    const getLotteristift = async () => {
+    try {
+      const data = await fetchData<Lottstift>('VolunteerOrganisations', orgNumber);
+      callbacks.onLottstift?.(data);
+      return data;
+    } catch (error) {
+      callbacks.onError?.(error);
+      return null;
+    }
+  };
+
   return {
     subscribe,
     getBasicInfo,
@@ -202,5 +214,6 @@ export function getOrganizationData(orgNumber: string) {
     getRegnskap,
     getRegisterutskrift,
     getRettsstiftelser,
+    getLotteristift
   };
 }
