@@ -10,14 +10,14 @@ updates:
     schedule:
       interval: "weekly"
     groups:
-      nuget-version-minor-patch:
+      version-minor-patch:
         applies-to: version-updates
         patterns:
           - "*"
         update-types:
           - "minor"
           - "patch"
-      nuget-security-minor-patch:
+      security-minor-patch:
         applies-to: security-updates
         patterns:
           - "*"
